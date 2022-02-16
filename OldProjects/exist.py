@@ -1,10 +1,13 @@
 T = [1, 2, 3, 5]
 n = 4
-x = 0
-for i in range(len(T)):
-    if T[i] == n:
-        x = x + 1
-if x == 0:
-    print("Nope!",n,"Doesn't exist in",T)
+number = 3
+itExists = False
+i = 0
+while i < 4 and itExists == False:
+    if T[i] == number:
+        itExists = True
+    i += 1
+if itExists:
+    print(number, "Exists in this list.")
 else:
-    print("Yes!",n,"Exists in",T)
+    print(n, "Does not exist in this list.")

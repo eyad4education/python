@@ -24,7 +24,7 @@ def completer(n):
     for i in range(1, n):
         v = False
         while v == False:
-            print("Donner l'element numero", i+1, ": ", end="")
+            print("Donner l'element nemuro", i+1, ": ", end="")
             T[i] = int(input())
             v = seq(T[i], i) == False
 
