@@ -1,101 +1,88 @@
+from random import randint
 import numpy as np
 
 
-def sumSpace(string):
-    space = " "
-    breakout = False
-    sum = 0
-    if string.find(space) == -1:
-        breakout = True
+def donner():
+    global nl, nc, n
+    v = False
+    while v == False:
+        nl = int(input("Donner nl:"))
+        v = 2 <= nl <= 10000
+    v = False
+    while v == False:
+        nc = int(input("Donner nc:"))
+        v = 2 <= nc <= 20
+    v = False
+    while v == False:
+        n = int(input("Donner n:"))
+        v = 2 <= n <= 20
+
+
+def isAlphaMaj(ch):
+    isAM = True
     i = 0
-    while breakout == False and i < len(string):
-        if string[i] == space:
-            sum += 1
+    while i < len(ch) and isAM:
+        if ord(ch[i]) > 90 or ord(ch[i]) < 65:
+            isAM = False
         i += 1
-    return sum
+    return isAM
 
 
-def ch_t(string):
+def compt_m(nl, nc):
+    global m
+    for j in range(nl):
+        for i in range(nc):
+            m[j, i] = chr(randint(65, 90))
+
+
+def compt_t(nc, n):
     global t
-    old = 0
-    newstring = string
-    for i in range(sumSpace(string)+1):
-        if newstring.find(" ") != -1:
-            index = newstring.find(" ")
-        else:
-            index = len(string)
-        t[i] = newstring[0:index]
-        old = newstring.find(" ")+1
-        newstring = newstring[old:len(newstring)]
-
-
-def sorting(n):
-    global t, m
-    v = False
-    while v == False:
-        for i in range(n-1):
-            sorted = True
-            ch1 = t[i]
-            ch2 = t[i+1]
-            if ch1[0].upper() > ch2[0].upper():
-                swap = t[i]
-                t[i] = t[i+1]
-                t[i+1] = swap
-                sorted = False
-        v = sorted == True
-    v = False
-    while v == False:
-        for i in range(n-1):
-            sorted = True
-            ch1 = m[0][i]
-            ch2 = m[0][i+1]
-            if ch1[0].upper() > ch2[0].upper():
-                swap = m[0][i]
-                m[0][i] = m[0][i+1]
-                m[0][i+1] = swap
-                sorted = False
-        v = sorted == True
-
-
-v = False
-while v == False:
-    n = int(input("Give n: "))
-    v = 1 <= n <= 10
-m = np.array([[str]*n]*2)
-
-for i in range(n):
-    for j in range(2):
-        if j == 0:
-            m[j][i] = str(input("give a word in french: "))
-        elif j == 1:
-            m[j][i] = str(input("give its translation in english: "))
-# m = [["ici", "facile", "donc", "donner"], ["here", "easy", "so", "give"]]
-for j in range(2):
     for i in range(n):
-        print(m[j][i], end=" ")
-    print()
+        v = False
+        while v == False:
+            t[i] = str(input("Donner un mot: "))
+            v = isAlphaMaj(t[i]) and len(t[i]) == nc
+
+
+def tri(ch):
+    list = [str()] * (len(ch))
+    for i in range(len(ch)):
+        list[i] = ch[i]
+    v = False
+    while v == False:
+        estTrier = True
+        for i in range(len(ch)-1):
+            if ord(list[i]) > ord(list[i+1]):
+                swap = list[i]
+                list[i] = list[i+1]
+                list[i+1] = swap
+                estTrier = False
+        v = estTrier
+    trieCH = ""
+    for i in range(len(ch)):
+        trieCH += list[i]
+    return trieCH
+
+
+def compt_tn(m, t, nl, nc, n):
+    global tn
+    for j in range(nl):
+        word = ""
+        for i in range(nc):
+            word += m[j, i]
+        for z in range(nl):
+            for y in range(n):
+                s = 0
+                if tri(t[y]) == tri(word):
+                    s += 1
+                tn[y] = s
+
+
+donner()
+m = np.array([[str] * nc] * nl)
+compt_m(nl, nc)
 t = [str()] * n
-phf = str(input("give the sentence you want to translate: "))
-ch_t(phf)
-sorting(n)
-spaces = sumSpace(phf)
-if spaces == 0:
-    i = 0
-    found = False
-    phg = ""
-    v = False
-    while v == False:
-        if m[0][i] == phf:
-            output = m[1][i]
-            found = True
-        i += 1
-        v = found == True or i == n
-elif spaces > 0:
-    phg = ""
-    for i in range(n):
-        for j in range(n):
-            if m[0][j] == t[i]:
-                phg += m[1][j] + " "
-
-
-print("the translation from french to english is:", phg)
+compt_t(nc, n)
+tn = [int()] * n
+compt_tn(m, t, nl, nc, n)
+print(tn)
