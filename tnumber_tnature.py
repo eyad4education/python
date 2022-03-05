@@ -3,10 +3,10 @@ from random import randint
 
 def fill():
     global n
-    v = False
-    while v == False:
+    v = True
+    while v:
         n = int(input("Enter n: "))
-        v = n > 2
+        v = not(n > 2)
 
 
 def complete(n):

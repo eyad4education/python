@@ -1,6 +1,6 @@
 def decompresser(chaine):
     space = " "
-    sumspace = 0
+    sumspace = 1
     stop = False
     if chaine.find(space) == -1 and chaine.find(space) != len(chaine)-1:
         stop = True
@@ -9,7 +9,6 @@ def decompresser(chaine):
         if chaine[i] == space:
             sumspace += 1
         i += 1
-    sumspace+=1
     t = [str()] * sumspace
     old = 0
     for i in range(sumspace):
@@ -27,5 +26,6 @@ def decompresser(chaine):
         for j in range(fois):
             och += ch[0]
     return och
+
 
 print(decompresser("a12 b5 C3 d11"))

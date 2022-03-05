@@ -5,7 +5,7 @@ def decompresser(chaine):
     if chaine.find(space) == -1 and chaine.find(space) != len(chaine)-1:
         stop = True
     i = 0
-    while stop == False and i < len(chaine):
+    while not stop and i < len(chaine):
         if chaine[i] == space:
             sumspace += 1
         i += 1
