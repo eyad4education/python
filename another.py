@@ -12,7 +12,7 @@ def completer(l, c):
     for j in range(l):
         for i in range(c):
             v = False
-            while v == False:
+            while not v:
                 print("Donner l'element ligne", j+1, "colonne", i+1, ": ")
                 m[j, i] = int(input())
                 v = m[j, i] > 0
@@ -21,7 +21,7 @@ def completer(l, c):
 def executer(m, l, c):
     for j in range(l):
         for i in range(c):
-            if somme(m, l, c, j, i) == False:
+            if somme(m, l, c, j, i):
                 print("Element", m[j, i], "ligne", j+1, "colonne", i+1)
 
 
@@ -39,9 +39,9 @@ def somme(m, l, c, j, i):
     for a in range(len(chc)):
         nbc += int(chc[a])
     if nbl == nbc:
-        okay = False
-    else:
         okay = True
+    else:
+        okay = False
     return okay
 
 
