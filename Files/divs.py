@@ -8,7 +8,7 @@ def saisie():
 
 def divs(nomphy, n):
     F = open(nomphy, "wb")
-    for i in range(1,(n//2)+1, 2): # Pour le nombre premier (1, (n//2)+1, 2)
+    for i in range(1,(n//2)+1): # Pour le nombre premier (1, (n//2)+1, 2)
         if n % i == 0:
             pickle.dump(i, F)
     pickle.dump(n, F)
