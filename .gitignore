@@ -1,3 +1,4 @@
 # Files to ignore
 main.py
 *.dat
+*.txt
