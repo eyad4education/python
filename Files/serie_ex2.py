@@ -84,7 +84,8 @@ F.write("2110\n1401869\n90181\n111\n94172\n")
 F.close()
 sleep(3)
 fixer(np, n)
-m = [[int() for i in range(n)] for i in range(n)]
+# m = [[int() for i in range(n)] for i in range(n)]
+m = [[int()] * n for i in range(n)]
 remplir_mat(m, np, n)
 trier_mat(m, n)
 remplir_fch(m, np, n)
